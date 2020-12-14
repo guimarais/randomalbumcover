@@ -1,0 +1,13 @@
+album_blurb = ['%s is a huge disapointment, but the hardcore fans will still be pleased.',
+               'The sounds from %s will surely attract them new fans.',
+               'Lo-fi phenomena %s is set to maybe reach some top spots in the charts.',
+               'Bringing reverb to high new levels, %s is set to twist some heads.',
+               'After the commercial acclaim of their previous album, can %s live up to the hype?',
+               'No one does it better than them, and you can see why in %s',
+               'However, everybody knows %s is an attempt at a quick cash grab.',
+               'Maybe with %s they finally get the acclaim they deserve.',
+               'Will the new generation of fans receive %s as well as their previous release?',
+               'One can never know what the next song of %s will add to the listening experience.',
+               'While the initial track of %s is amazing, the rest of the album is somewhat lackluster.', 
+               'If they released an album this year, it would have to be %s.',
+               'Their new release, %s, might be the last nail in their career']

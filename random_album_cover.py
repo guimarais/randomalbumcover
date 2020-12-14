@@ -10,7 +10,25 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 import requests
-from random import randrange
+from random import randint, randrange
+import os
+import tweepy
+from album_blurb import album_blurb
+from band_blurb import band_blurb
+
+consumer_key = os.getenv("TWITTER_API_KEY")
+consumer_secret = os.getenv("TWITTER_API_SECRET")
+access_token = os.getenv("TWITTER_ACCESS_TOKEN")
+token_secret = os.getenv("TWITTER_TOKEN_SECRET")
+
+def twitter_api():
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, token_secret)
+
+    # Create API object
+    api = tweepy.API(auth, wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+    
+    return api
 
 class MyHTMLParser(HTMLParser):
     def __init__(self):
@@ -58,7 +76,16 @@ def getAlbumTitle():
     return (" ").join(words[-last_set:])
 
 
-def getPicsum():
+def message_sentence(s1, s2):
+    s1index = randint(0, len(s1)-1)
+    s2index = randint(0, len(s2)-1)
+
+    full_sentence = s1[s1index] + " " +s2[s2index]
+    
+    return full_sentence
+
+
+def getPicsum(band_name, album_titlr):
     width_sizes = [400, 500, 600, 700]
     
     width = width_sizes[randrange(0, len(width_sizes), 1)]
@@ -80,7 +107,6 @@ def getPicsum():
     
     x_title = 10
     y_title = 20
-    band_name = getBandName()
 
     bg_color = (randrange(0, 256, 1), randrange(0, 256, 1), randrange(0, 256, 1))
     fg_color = (randrange(0, 256, 1), randrange(0, 256, 1), randrange(0, 256, 1))
@@ -93,7 +119,6 @@ def getPicsum():
     
     x_title = 10
     y_title = height - 40
-    album_title = getAlbumTitle()
 
     bg_color = (randrange(0, 256, 1), randrange(0, 256, 1), randrange(0, 256, 1))
     fg_color = (randrange(0, 256, 1), randrange(0, 256, 1), randrange(0, 256, 1))
@@ -107,8 +132,30 @@ def getPicsum():
     return img
 
 
+def message_sentence(s1, s2, band, album):
+
+    s1index = randint(0, len(s1)-1)
+    s2index = randint(0, len(s2)-1)
+
+    full_sentence = s1[s1index]%(band) + " " +s2[s2index]%(album)
+    
+    return full_sentence
+
+#################################################
 if __name__=='__main__':
-    img = getPicsum()
+        
+    band_name = getBandName()
+    band = '\"' + band_name + '\"'
+
+    album_title = getAlbumTitle()
+    album = '\"' + album_title + '\"'
+    
+    img = getPicsum(band_name, album_title)
     img.save('test.png')
+    
+    message = message_sentence(band_blurb, album_blurb, band, album)
+    
+    api = twitter_api()    
+    #return_status = api.update_with_media("test.png", status=message)
 
 
