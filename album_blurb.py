@@ -10,4 +10,16 @@ album_blurb = ['%s is a huge disapointment, but the hardcore fans will still be 
                'One can never know what the next song of %s will add to the listening experience.',
                'While the initial track of %s is amazing, the rest of the album is somewhat lackluster.', 
                'If they released an album this year, it would have to be %s.',
-               'Their new release, %s, might be the last nail in their career']
+               'Their new release, %s, might be the last nail in their career',
+               'Wider in sonic range than the pitch of Captain Tsubasa is long, %s promises interesting long plays.',
+               'While %s is longer than most Dragon Ball Z battles, it is equally enjoyable.',
+               'We have high hopes for %s.',
+               'Can %s be the album of the decade?',
+               'Can %s be the album of the century?',
+               'Can %s be the album of the millenium?',
+               'Can %s become the best album of all time?',
+               'We recommend %s to be listened with a good headset, all the way up to 11.',
+               '%s is more magical than a turn 1 Black Lotus.',
+               '%s is a niche album. Quite quirky, but a satisfying eeprience.',
+               'There is a lot of hype around their new release, %s. Will it be able to live up to expectations?',
+               'Do not judge a book by its cover, never judge an album by its cover art. This is especially true for %s.', 'Beep %s boop']

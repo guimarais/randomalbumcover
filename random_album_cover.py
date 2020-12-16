@@ -156,6 +156,6 @@ if __name__=='__main__':
     message = message_sentence(band_blurb, album_blurb, band, album)
     
     api = twitter_api()    
-    #return_status = api.update_with_media("test.png", status=message)
+    return_status = api.update_with_media("test.png", status=message)
 
 
