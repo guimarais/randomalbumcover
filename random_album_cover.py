@@ -145,46 +145,29 @@ def message_sentence(s1, s2, band, album):
 
 #################################################
 def run_all():
+    """
+    Runs the entire beatbot process
+    """
 
-    try:
-        band_name = getBandName()
-        band = '\"' + band_name + '\"'
-    except:
-        raise ValueError("No band name constrcuted.")
+    # Creates a band name and the quotations to put in the blurb.
+    band_name = getBandName()
+    band = '\"' + band_name + '\"'
 
-    try:
-        album_title = getAlbumTitle()
-        album = '\"' + album_title + '\"'
-    except:
-        raise ValueError("No album name constructed.")
+    # Creates the album title and the quotations to put in the blurb 
+    album_title = getAlbumTitle()
+    album = '\"' + album_title + '\"'
 
-    try:
-        img = getPicsum(band_name, album_title)
-    except:
-        raise ValueError("No Image defined.")
+    #Gets the image from Picosia and the creates the image to upload
+    img = getPicsum(band_name, album_title)
+    stored_image = storage_dir + 'test.png'
+    img.save(stored_image)
 
-    print("d3")
-    try:
-        stored_image = storage_dir + 'test.png'
-        img.save(stored_image)
-    except:
-        raise ValueError("No image saved.")
-
-    print("d4")
-    try:
-        message = message_sentence(band_blurb, album_blurb, band, album)
-    except:
-        raise ValueError("No blurb defined.")
+    # Creates the blurb
+    message = message_sentence(band_blurb, album_blurb, band, album)
     
-    print("d5")
-
-    #try:
+    # Gets the tokens and upload the picture with the blurb
     api = twitter_api()
-    print("d6")
     return_status = api.update_with_media(stored_image, status=message)
-    print("d7")
-    #except:
-    #    raise ValueError("Couldn't upload")
 
 
 ####################################################
