@@ -20,7 +20,7 @@ consumer_secret = os.getenv("TWITTER_API_SECRET")
 access_token = os.getenv("TWITTER_ACCESS_TOKEN")
 token_secret = os.getenv("TWITTER_TOKEN_SECRET")
 
-storage_dir = os.getenv("HOME") + "/Software/randomalbumcover/"
+storage_dir = "/home/guimas/Software/randomalbumcover/"
 
 
 def twitter_api():
@@ -87,7 +87,7 @@ def message_sentence(s1, s2):
     return full_sentence
 
 
-def getPicsum(band_name, album_titlr):
+def getPicsum(band_name, album_title):
     width_sizes = [400, 500, 600, 700]
     
     width = width_sizes[randrange(0, len(width_sizes), 1)]
@@ -97,7 +97,7 @@ def getPicsum(band_name, album_titlr):
     url = 'https://picsum.photos/' + str(width) + '/' + str(height)
 
     album_art = requests.get(url)
-    
+
     with open(name, 'wb') as raw_file:
         raw_file.write(album_art.content)
     
@@ -144,21 +144,49 @@ def message_sentence(s1, s2, band, album):
     return full_sentence
 
 #################################################
-if __name__=='__main__':
-        
-    band_name = getBandName()
-    band = '\"' + band_name + '\"'
+def run_all():
 
-    album_title = getAlbumTitle()
-    album = '\"' + album_title + '\"'
+    try:
+        band_name = getBandName()
+        band = '\"' + band_name + '\"'
+    except:
+        raise ValueError("No band name constrcuted.")
+
+    try:
+        album_title = getAlbumTitle()
+        album = '\"' + album_title + '\"'
+    except:
+        raise ValueError("No album name constructed.")
+
+    try:
+        img = getPicsum(band_name, album_title)
+    except:
+        raise ValueError("No Image defined.")
+
+    print("d3")
+    try:
+        stored_image = storage_dir + 'test.png'
+        img.save(stored_image)
+    except:
+        raise ValueError("No image saved.")
+
+    print("d4")
+    try:
+        message = message_sentence(band_blurb, album_blurb, band, album)
+    except:
+        raise ValueError("No blurb defined.")
     
-    img = getPicsum(band_name, album_title)
-    stored_image = storage_dir + 'test.png'
-    img.save(stored_image)
-    
-    message = message_sentence(band_blurb, album_blurb, band, album)
-    
+    print("d5")
+
+    #try:
     api = twitter_api()
+    print("d6")
     return_status = api.update_with_media(stored_image, status=message)
+    print("d7")
+    #except:
+    #    raise ValueError("Couldn't upload")
 
+
+####################################################
+run_all()
 
